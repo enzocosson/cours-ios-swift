@@ -16,6 +16,8 @@ enum AvailableApps: String, CaseIterable {
     case jackpot = "Jackpot"
     case pierreFeuilleCiseaux = "Pierre Feuille Ciseaux"
     case devinezLeNombreView = "Devinez Le Nombre"
+    case emoji = "Emoji"
+    case echec = "Echec"
     
     var imageName: String {
         switch self {
@@ -25,6 +27,10 @@ enum AvailableApps: String, CaseIterable {
             return "pierreFeuilleCiseaux"
         case .devinezLeNombreView:
             return "nombre"
+        case .emoji:
+            return "emoji"
+        case .echec:
+            return "echec"
         }
     }
 }

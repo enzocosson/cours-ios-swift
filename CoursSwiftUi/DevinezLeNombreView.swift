@@ -1,11 +1,7 @@
 import SwiftUI
 
 struct DevinezLeNombreView: View {
-    @State private var randomNumber = Int.random(in: 1...100)
-    @State private var playerGuess = ""
-    @State private var feedbackMessage = "Devinez un nombre entre 1 et 100"
-    @State private var attempts = 0
-    @State private var gameOver = false
+    @StateObject private var gameModel = DevinezLeNombreModel()
     
     var body: some View {
         ZStack {
@@ -18,13 +14,13 @@ struct DevinezLeNombreView: View {
                     .bold()
                     .foregroundColor(.white)
                 
-                Text(feedbackMessage)
+                Text(gameModel.feedbackMessage)
                     .font(.title2)
                     .foregroundColor(.white)
                     .padding()
                     .background(Capsule().fill(Color.white.opacity(0.2)))
                 
-                TextField("Entrez votre nombre", text: $playerGuess)
+                TextField("Entrez votre nombre", text: $gameModel.playerGuess)
                     .keyboardType(.numberPad)
                     .font(.title2)
                     .padding()
@@ -33,7 +29,7 @@ struct DevinezLeNombreView: View {
                     .shadow(radius: 5)
                     .padding(.horizontal)
                 
-                Button(action: makeGuess) {
+                Button(action: gameModel.makeGuess) {
                     Text("Valider")
                         .font(.title2)
                         .bold()
@@ -45,13 +41,13 @@ struct DevinezLeNombreView: View {
                 }
                 .padding(.top, 20)
                 
-                if gameOver {
-                    Text("Vous avez trouvé le nombre en \(attempts) essais !")
+                if gameModel.gameOver {
+                    Text("Vous avez trouvé le nombre en \(gameModel.attempts) essais !")
                         .font(.title2)
                         .foregroundColor(.white)
                         .padding(.top, 30)
                     
-                    Button(action: resetGame) {
+                    Button(action: gameModel.resetGame) {
                         Text("Rejouer")
                             .font(.title)
                             .bold()
@@ -66,32 +62,6 @@ struct DevinezLeNombreView: View {
             }
             .padding()
         }
-    }
-    
-    func makeGuess() {
-        guard let guess = Int(playerGuess) else {
-            feedbackMessage = "Veuillez entrer un nombre valide."
-            return
-        }
-        
-        attempts += 1
-        
-        if guess < randomNumber {
-            feedbackMessage = "Trop bas ! Essayez encore."
-        } else if guess > randomNumber {
-            feedbackMessage = "Trop haut ! Essayez encore."
-        } else {
-            feedbackMessage = "Bravo ! Vous avez trouvé le bon nombre."
-            gameOver = true
-        }
-    }
-    
-    func resetGame() {
-        randomNumber = Int.random(in: 1...100)
-        playerGuess = ""
-        feedbackMessage = "Devinez un nombre entre 1 et 100"
-        attempts = 0
-        gameOver = false
     }
 }
 

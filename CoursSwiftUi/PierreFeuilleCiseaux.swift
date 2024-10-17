@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PierreFeuilleCiseauxView: View {
-    @State private var options = ["Pierre", "Feuille", "Ciseaux"]
+    @State private var options = ["🪨", "📄", "✂️"]
     @State private var playerChoice = ""
     @State private var computerChoice = ""
     @State private var resultMessage = ""
@@ -40,7 +40,7 @@ struct PierreFeuilleCiseauxView: View {
                                 playerChose(option)
                             }) {
                                 Text(option)
-                                    .font(.headline)
+                                    .font(.largeTitle)
                                     .fontWeight(.bold)
                                     .frame(width: 80, height: 80)
                                     .background(Color.white.opacity(0.15))
@@ -72,20 +72,18 @@ struct PierreFeuilleCiseauxView: View {
                 }
                 
                 if !gameOver {
-                    HStack {
+                    VStack(spacing: 10) {
                         Text("Score du joueur : \(playerScore)")
                             .font(.headline)
                             .foregroundColor(.white)
-                        Text(" | ")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                        
                         Text("Score de l'ordinateur : \(computerScore)")
                             .font(.headline)
                             .foregroundColor(.white)
                     }
                     .padding(.top, 30)
                 }
-                
+
                 if gameOver {
                     Text(playerScore == 3 ? "Vous avez gagné la partie !" : "L'ordinateur a gagné la partie !")
                         .font(.largeTitle)

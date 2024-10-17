@@ -25,6 +25,12 @@ struct AppDetailView: View {
             if appName == AvailableApps.devinezLeNombreView.rawValue {
                 DevinezLeNombreView()
             }
+            if appName == AvailableApps.emoji.rawValue {
+                TrouverLEmojiView()
+            }
+            if appName == AvailableApps.echec.rawValue {
+                ChessBoardView()
+            }
             else {
                 Text("Détails de l'application \(appName)")
                     .font(.subheadline)
